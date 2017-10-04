@@ -1,9 +1,11 @@
 (() => {
     "use strict";
 
-    const ImprintProperties = require('./lib/func_imprint_prop');
+    const ImprintProperties = require( './lib/func_imprint_prop' );
+    const ParseURLQuery		= require( './lib/func_parse_url_query' );
     const APIs = {
-        ImprintProperties
+        ImprintProperties,
+        ParseURLQuery
     };
 
 
