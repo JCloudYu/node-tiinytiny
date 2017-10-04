@@ -1,21 +1,29 @@
-(()=>{
-	"use strict";
+(() => {
+    "use strict";
+
+    const ImprintProperties = require('./lib/func_imprint_prop');
+    const APIs = {
+        ImprintProperties
+    };
+
+
+
+    const exported = ImprintProperties({}, APIs, [true, true, false]);
+    ImprintProperties(exported, {
+        register: () => {
+            for (let idx in APIs) {
+                if (APIs.hasOwnProperty(idx)) {
+                    if (!APIs[idx].register) continue;
+
+                    APIs[idx].register();
+                }
+            }
+
+            return exported;
+        }
+    }, [true, true, false]);
+
+
 	
-	const ImprintProperties = require( './lib/func_imprint_prop' );
-	const APIs = {
-		ImprintProperties
-	};
-	
-	module.exports = ImprintProperties({}, APIs);
-	Object.defineProperty( module.exports, "register", {
-		value:()=>{
-			for(let idx in APIs) {
-				if ( APIs.hasOwnProperty(idx) ) {
-					APIs[idx].register();
-				}
-			}
-			
-			return module.exports;
-		}
-	})
+    module.exports = exported;
 })();

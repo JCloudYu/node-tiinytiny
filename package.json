@@ -1,10 +1,10 @@
 {
     "name": "tiinytiny",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "This module provides tiiny things to help developers to write less lines...",
     "main": "entry.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "node ./test.js"
     },
     "author": "JCloudYu",
     "license": "WTFPL"
