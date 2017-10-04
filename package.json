@@ -1,11 +1,11 @@
 {
-  "name": "tiinytiny",
-  "version": "0.0.1",
-  "description": "",
-  "main": "entry.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "JCloudYu",
-  "license": "WTFPL"
+    "name": "tiinytiny",
+    "version": "0.0.2",
+    "description": "This module provides tiiny things to help developers to write less lines...",
+    "main": "entry.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "JCloudYu",
+    "license": "WTFPL"
 }
