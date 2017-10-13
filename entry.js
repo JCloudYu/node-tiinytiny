@@ -3,9 +3,11 @@
 
     const ImprintProperties = require( './lib/func_imprint_prop' );
     const ParseURLQuery		= require( './lib/func_parse_url_query' );
+    const PromiseWaitAll	= require( './lib/func_promise_wait_all' );
     const APIs = {
         ImprintProperties,
-        ParseURLQuery
+        ParseURLQuery,
+        PromiseWaitAll
     };
 
 

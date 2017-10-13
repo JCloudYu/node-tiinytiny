@@ -1,6 +1,6 @@
 {
     "name": "tiinytiny",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "This module provides tiiny things to help developers to write less lines...",
     "main": "entry.js",
     "scripts": {

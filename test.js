@@ -71,4 +71,47 @@
 
 		process.stdout.write(passed ? "Pass!\n" : "Fail!\n");
 	}
+	
+	
+	
+	process.stdout.write("Testing PromiseWaitAll... ");
+	{
+		let DelayedCallback = (value, pass, delay=4)=>{
+			return new Promise((fulfill, reject)=>{
+				setTimeout(()=>{
+					(pass ? fulfill : reject)();
+				}, ((Math.random() * delay * 1000)|0)+1000);
+			});
+		};
+		let manyJobs = [
+			DelayedCallback(1, true),
+			DelayedCallback(2, false),
+			DelayedCallback(3, false),
+			DelayedCallback(4, true),
+			DelayedCallback(5, false),
+			DelayedCallback(6, true)
+		];
+		
+		let pass = true;
+		tiiny.PromiseWaitAll(manyJobs)
+		.then(()=>{ pass = pass && false; })
+		.catch(()=>{ pass = pass && true; });
+		
+		
+		manyJobs = [
+			DelayedCallback(1, true),
+			DelayedCallback(2, true),
+			DelayedCallback(3, true),
+			DelayedCallback(4, true),
+			DelayedCallback(5, true),
+			DelayedCallback(6, true)
+		];
+		
+		
+		tiiny.PromiseWaitAll(manyJobs)
+		.then(()=>{ pass = pass && true; })
+		.catch(()=>{ pass = pass && false; });
+		
+		process.stdout.write(pass ? "Pass!\n" : "Fail!\n");
+	}
 })();
