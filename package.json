@@ -1,11 +1,25 @@
 {
     "name": "tiinytiny",
-    "version": "0.1.4",
+    "version": "0.2.0",
     "description": "This module provides tiiny things to help developers to write less lines...",
     "main": "entry.js",
+	"engines": {
+		"node": ">=8"
+	},
     "scripts": {
-        "test": "node ./test.js"
+        "test": "node test.js"
     },
+    "repository": {
+		"type": "git",
+		"url": "git+https://github.com/JCloudYu/node-tiinytiny.git"
+	},
+    "keywords": [
+    	"TiinyTiny"
+    ],
     "author": "JCloudYu",
-    "license": "WTFPL"
+    "license": "WTFPL",
+    "bugs": {
+    	"url": "https://github.com/JCloudYu/node-tiinytiny/issues"
+    },
+    "homepage": "https://github.com/JCloudYu/node-tiinytiny/#readme"
 }
