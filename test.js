@@ -1,6 +1,8 @@
 (async()=>{
 	"use strict";
-	await require('./test/test.imprint-properties')();
-	await require('./test/test.promise-wait-all')();
-	await require('./test/test.include')();
+	
+	console.log( "[ Testing tiinytiny ]" );
+	await require('./test/test.imprint-properties')(true);
+	await require('./test/test.promise-wait-all')(true);
+	await require('./test/test.include')(true);
 })();

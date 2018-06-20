@@ -7,10 +7,11 @@
 (()=>{
 	"use strict";
 	
-	const tiiny = require('../entry.js');
+	module.exports=async(extend=false)=>{
+		const tiiny = require( extend ? '../entry.js' : '../safe.js' );
+		const WaitAll = extend ? Promise.wait : tiiny.PromiseWaitAll;
 	
-	module.exports=async()=>{
-		process.stdout.write( "\nTesting PromiseWaitAll...\n");
+		process.stdout.write( "\n    Testing PromiseWaitAll...\n");
 		{
 			let DelayedCallback = (value, passed)=>{
 				return new Promise((fulfill, reject)=>{
@@ -21,7 +22,7 @@
 			};
 			
 			
-			process.stdout.write("    check rejected condition... ");
+			process.stdout.write("        check rejected condition... ");
 			{
 				let pass = true;
 				let manyJobs = [
@@ -36,7 +37,7 @@
 				
 				
 				
-				await tiiny.PromiseWaitAll(manyJobs)
+				await WaitAll(manyJobs)
 				.then(()=>{
 					pass = pass && false;
 				})
@@ -51,7 +52,7 @@
 			
 			
 			
-			process.stdout.write("    check resolved condition... ");
+			process.stdout.write("        check resolved condition... ");
 			{
 				let pass = true;
 				let manyJobs = [
@@ -65,7 +66,7 @@
 				let gTruth = [true, true, true, true, true, true];
 				
 				
-				await tiiny.PromiseWaitAll(manyJobs)
+				await WaitAll(manyJobs)
 				.then((results)=>{
 					results.forEach((result, idx)=>{
 						pass = pass && (result.seq === result.result);

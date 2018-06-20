@@ -7,11 +7,12 @@
 (()=>{
 	"use strict";
 	
-	const tiiny = require('../entry');
+	module.exports=async(extend=false)=>{
+		const tiiny = require( extend ? '../entry.js' : '../safe.js' );
+		const RInclude = extend ? global.include : tiiny.Include;
 	
-	module.exports=async()=>{
-		let result = tiiny.Include('./test/test.include.reach.js');
-		process.stdout.write(`\n Testing Include...\n`);
-		process.stdout.write(`    checking inclusion from './test.include.reach.js'... ${result}\n`);
+		let result = RInclude('./test/test.include.reach.js');
+		process.stdout.write(`\n    Testing Include...\n`);
+		process.stdout.write(`        checking inclusion from './test.include.reach.js'... ${result}\n`);
 	};
 })();

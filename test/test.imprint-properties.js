@@ -7,19 +7,20 @@
 (()=>{
 	"use strict";
 	
-	const tiiny = require('../entry.js');
+	module.exports=async(extend=false)=>{
+		const tiiny = require( extend ? '../entry.js' : '../safe.js' );
+		const PropImprint = extend ? Object.imprintProperties : tiiny.ImprintProperties;
 	
-	module.exports=async()=>{
-		process.stdout.write( "Testing ImprintProperties...\n");
+		process.stdout.write( "    Testing ImprintProperties...\n");
 		{
-			process.stdout.write("    boolean options...\n");
+			process.stdout.write("        boolean options...\n");
 			{
 				{
 					let target = {}; let passed;
-					tiiny.ImprintProperties(target, {prop:"val"}, false);
-					tiiny.ImprintProperties(target, {prop2:"val2"}, true);
+					PropImprint(target, {prop:"val"}, false);
+					PropImprint(target, {prop2:"val2"}, true);
 					
-					process.stdout.write("        checking writable on false... ");
+					process.stdout.write("            checking writable on false... ");
 					passed = true;
 					try {
 						target.prop = 1;
@@ -29,7 +30,7 @@
 					}
 					process.stdout.write(`${passed?'pass':'fail'}\n`);
 					
-					process.stdout.write("        checking writable on true... ");
+					process.stdout.write("            checking writable on true... ");
 					passed = true;
 					try {
 						target.prop2 = 1;
@@ -43,10 +44,10 @@
 				
 				{
 					let target = {}; let passed;
-					tiiny.ImprintProperties(target, {prop:"val"}, false);
-					tiiny.ImprintProperties(target, {prop2:"val2"}, true);
+					PropImprint(target, {prop:"val"}, false);
+					PropImprint(target, {prop2:"val2"}, true);
 					
-					process.stdout.write("        checking configurable on false... ");
+					process.stdout.write("            checking configurable on false... ");
 					passed = true;
 					try {
 						delete target.prop;
@@ -56,7 +57,7 @@
 					}
 					process.stdout.write(`${passed?'pass':'fail'}\n`);
 					
-					process.stdout.write("        checking configurable on true... ");
+					process.stdout.write("            checking configurable on true... ");
 					passed = true;
 					try {
 						delete target.prop2;
@@ -71,10 +72,10 @@
 				
 				{
 					let target = {}; let passed;
-					tiiny.ImprintProperties(target, {prop:"val"}, false);
-					tiiny.ImprintProperties(target, {prop2:"val2"}, true);
+					PropImprint(target, {prop:"val"}, false);
+					PropImprint(target, {prop2:"val2"}, true);
 					
-					process.stdout.write("        checking enumerable on false... ");
+					process.stdout.write("            checking enumerable on false... ");
 					passed = false;
 					for(let idx in target) {
 						if (idx === 'prop') {
@@ -83,7 +84,7 @@
 					}
 					process.stdout.write(`${passed?'pass':'fail'}\n`);
 					
-					process.stdout.write("        checking enumerable on true... ");
+					process.stdout.write("            checking enumerable on true... ");
 					for(let idx in target) {
 						if (idx === 'prop2') {
 							passed = passed || true;
@@ -93,16 +94,16 @@
 				}
 			}
 			
-			process.stdout.write("\n    array options...\n");
+			process.stdout.write("\n        array options...\n");
 			{
-				process.stdout.write("        options=[?, false, true]...\n");
+				process.stdout.write("            options=[?, false, true]...\n");
 				{
 					{
 						let target = {}; let passed;
-						tiiny.ImprintProperties(target, {prop:"val"}, [false, false, true]);
-						tiiny.ImprintProperties(target, {prop2:"val2"}, [true, false, true]);
+						PropImprint(target, {prop:"val"}, [false, false, true]);
+						PropImprint(target, {prop2:"val2"}, [true, false, true]);
 						
-						process.stdout.write("            checking writable on [false, false, true]... ");
+						process.stdout.write("                checking writable on [false, false, true]... ");
 						passed = true;
 						try {
 							target.prop = 1;
@@ -112,7 +113,7 @@
 						}
 						process.stdout.write(`${passed?'pass':'fail'}\n`);
 						
-						process.stdout.write("            checking writable on [true, false, true]... ");
+						process.stdout.write("                checking writable on [true, false, true]... ");
 						passed = true;
 						try {
 							target.prop2 = 1;
@@ -127,10 +128,10 @@
 					
 					{
 						let target = {}; let passed;
-						tiiny.ImprintProperties(target, {prop:"val"}, [false, false, true]);
-						tiiny.ImprintProperties(target, {prop2:"val2"}, [true, false, true]);
+						PropImprint(target, {prop:"val"}, [false, false, true]);
+						PropImprint(target, {prop2:"val2"}, [true, false, true]);
 						
-						process.stdout.write("            checking configurable on [false, false, true]... ");
+						process.stdout.write("                checking configurable on [false, false, true]... ");
 						passed = true;
 						try {
 							delete target.prop;
@@ -140,7 +141,7 @@
 						}
 						process.stdout.write(`${passed?'pass':'fail'}\n`);
 						
-						process.stdout.write("            checking configurable on [true, false, true]... ");
+						process.stdout.write("                checking configurable on [true, false, true]... ");
 						passed = true;
 						try {
 							delete target.prop2;
@@ -154,10 +155,10 @@
 					
 					{
 						let target = {}; let passed;
-						tiiny.ImprintProperties(target, {prop:"val"}, [false, false, true]);
-						tiiny.ImprintProperties(target, {prop2:"val2"}, [true, false, true]);
+						PropImprint(target, {prop:"val"}, [false, false, true]);
+						PropImprint(target, {prop2:"val2"}, [true, false, true]);
 						
-						process.stdout.write("            checking enumerable on [false, false, true]... ");
+						process.stdout.write("                checking enumerable on [false, false, true]... ");
 						passed = false;
 						for(let idx in target) {
 							if (idx === 'prop') {
@@ -166,7 +167,7 @@
 						}
 						process.stdout.write(`${passed?'pass':'fail'}\n`);
 						
-						process.stdout.write("            checking enumerable on [true, false, true]... ");
+						process.stdout.write("                checking enumerable on [true, false, true]... ");
 						passed = false;
 						for(let idx in target) {
 							if (idx === 'prop2') {
@@ -177,14 +178,14 @@
 					}
 				}
 				
-				process.stdout.write("\n        options=[false, ?, true]...");
+				process.stdout.write("\n            options=[false, ?, true]...");
 				{
 					{
 						let target = {}; let passed;
-						tiiny.ImprintProperties(target, {prop:"val"}, [false, false, true]);
-						tiiny.ImprintProperties(target, {prop2:"val2"}, [false, true, true]);
+						PropImprint(target, {prop:"val"}, [false, false, true]);
+						PropImprint(target, {prop2:"val2"}, [false, true, true]);
 						
-						process.stdout.write("\n            checking writable on [false, false, true]... ");
+						process.stdout.write("\n                checking writable on [false, false, true]... ");
 						passed = true;
 						try {
 							target.prop = 1;
@@ -194,7 +195,7 @@
 						}
 						process.stdout.write(`${passed?'pass':'fail'}\n`);
 						
-						process.stdout.write("            checking writable on [false, true, true]... ");
+						process.stdout.write("                checking writable on [false, true, true]... ");
 						passed = true;
 						try {
 							target.prop2 = 1;
@@ -208,10 +209,10 @@
 					
 					{
 						let target = {}; let passed;
-						tiiny.ImprintProperties(target, {prop:"val"}, [false, false, true]);
-						tiiny.ImprintProperties(target, {prop2:"val2"}, [false, true, true]);
+						PropImprint(target, {prop:"val"}, [false, false, true]);
+						PropImprint(target, {prop2:"val2"}, [false, true, true]);
 						
-						process.stdout.write("            checking configurable on [false, false, true]... ");
+						process.stdout.write("                checking configurable on [false, false, true]... ");
 						passed = true;
 						try {
 							delete target.prop;
@@ -221,7 +222,7 @@
 						}
 						process.stdout.write(`${passed?'pass':'fail'}\n`);
 						
-						process.stdout.write("            checking configurable on [false, true, true]... ");
+						process.stdout.write("                checking configurable on [false, true, true]... ");
 						passed = true;
 						try {
 							delete target.prop2;
@@ -235,10 +236,10 @@
 					
 					{
 						let target = {}; let passed;
-						tiiny.ImprintProperties(target, {prop:"val"}, [false, false, true]);
-						tiiny.ImprintProperties(target, {prop2:"val2"}, [false, true, true]);
+						PropImprint(target, {prop:"val"}, [false, false, true]);
+						PropImprint(target, {prop2:"val2"}, [false, true, true]);
 						
-						process.stdout.write("            checking enumerable on [false, false, true]... ");
+						process.stdout.write("                checking enumerable on [false, false, true]... ");
 						passed = false;
 						for(let idx in target) {
 							if (idx === 'prop') {
@@ -247,7 +248,7 @@
 						}
 						process.stdout.write(`${passed?'pass':'fail'}\n`);
 						
-						process.stdout.write("            checking enumerable on [false, true, true]... ");
+						process.stdout.write("                checking enumerable on [false, true, true]... ");
 						passed = false;
 						for(let idx in target) {
 							if (idx === 'prop2') {
@@ -258,14 +259,14 @@
 					}
 				}
 				
-				process.stdout.write("\n        options=[false, false, ?]...");
+				process.stdout.write("\n            options=[false, false, ?]...");
 				{
 					{
 						let target = {}; let passed;
-						tiiny.ImprintProperties(target, {prop:"val"}, [false, false, false]);
-						tiiny.ImprintProperties(target, {prop2:"val2"}, [false, false, true]);
+						PropImprint(target, {prop:"val"}, [false, false, false]);
+						PropImprint(target, {prop2:"val2"}, [false, false, true]);
 						
-						process.stdout.write("\n            checking writable on [false, false, false]... ");
+						process.stdout.write("\n                checking writable on [false, false, false]... ");
 						passed = true;
 						try {
 							target.prop = 1;
@@ -275,7 +276,7 @@
 						}
 						process.stdout.write(`${passed?'pass':'fail'}\n`);
 						
-						process.stdout.write("            checking writable on [false, false, true]... ");
+						process.stdout.write("                checking writable on [false, false, true]... ");
 						passed = true;
 						try {
 							target.prop2 = 1;
@@ -289,10 +290,10 @@
 					
 					{
 						let target = {}; let passed;
-						tiiny.ImprintProperties(target, {prop:"val"}, [false, false, false]);
-						tiiny.ImprintProperties(target, {prop2:"val2"}, [false, false, true]);
+						PropImprint(target, {prop:"val"}, [false, false, false]);
+						PropImprint(target, {prop2:"val2"}, [false, false, true]);
 						
-						process.stdout.write("            checking configurable on [false, false, false]... ");
+						process.stdout.write("                checking configurable on [false, false, false]... ");
 						passed = true;
 						try {
 							delete target.prop;
@@ -302,7 +303,7 @@
 						}
 						process.stdout.write(`${passed?'pass':'fail'}\n`);
 						
-						process.stdout.write("            checking configurable on [false, false, true]... ");
+						process.stdout.write("                checking configurable on [false, false, true]... ");
 						passed = true;
 						try {
 							delete target.prop2;
@@ -316,10 +317,10 @@
 					
 					{
 						let target = {}; let passed;
-						tiiny.ImprintProperties(target, {prop:"val"}, [false, false, false]);
-						tiiny.ImprintProperties(target, {prop2:"val2"}, [false, false, true]);
+						PropImprint(target, {prop:"val"}, [false, false, false]);
+						PropImprint(target, {prop2:"val2"}, [false, false, true]);
 						
-						process.stdout.write("            checking enumerable on [false, false, false]... ");
+						process.stdout.write("                checking enumerable on [false, false, false]... ");
 						passed = true;
 						for(let idx in target) {
 							if (idx === 'prop') {
@@ -328,7 +329,7 @@
 						}
 						process.stdout.write(`${passed?'pass':'fail'}\n`);
 						
-						process.stdout.write("            checking enumerable on [false, false, true]... ");
+						process.stdout.write("                checking enumerable on [false, false, true]... ");
 						passed = false;
 						for(let idx in target) {
 							if (idx === 'prop2') {
@@ -340,16 +341,16 @@
 				}
 			}
 			
-			process.stdout.write("\n    object options...\n");
+			process.stdout.write("\n        object options...\n");
 			{
-				process.stdout.write("        options={writable:?, configurable:false, enumerable:true}...\n");
+				process.stdout.write("            options={writable:?, configurable:false, enumerable:true}...\n");
 				{
 					{
 						let target = {}; let passed;
-						tiiny.ImprintProperties(target, {prop:"val"}, {writable:false, configurable:false, enumerable:true});
-						tiiny.ImprintProperties(target, {prop2:"val2"}, {writable:true, configurable:false, enumerable:true});
+						PropImprint(target, {prop:"val"}, {writable:false, configurable:false, enumerable:true});
+						PropImprint(target, {prop2:"val2"}, {writable:true, configurable:false, enumerable:true});
 						
-						process.stdout.write("            checking writable on {writable:false, configurable:false, enumerable:true}... ");
+						process.stdout.write("                checking writable on {writable:false, configurable:false, enumerable:true}... ");
 						passed = true;
 						try {
 							target.prop = 1;
@@ -359,7 +360,7 @@
 						}
 						process.stdout.write(`${passed?'pass':'fail'}\n`);
 						
-						process.stdout.write("            checking writable on {writable:true, configurable:false, enumerable:true}... ");
+						process.stdout.write("                checking writable on {writable:true, configurable:false, enumerable:true}... ");
 						passed = true;
 						try {
 							target.prop2 = 1;
@@ -374,10 +375,10 @@
 					
 					{
 						let target = {}; let passed;
-						tiiny.ImprintProperties(target, {prop:"val"}, {writable:false, configurable:false, enumerable:true});
-						tiiny.ImprintProperties(target, {prop2:"val2"}, {writable:true, configurable:false, enumerable:true});
+						PropImprint(target, {prop:"val"}, {writable:false, configurable:false, enumerable:true});
+						PropImprint(target, {prop2:"val2"}, {writable:true, configurable:false, enumerable:true});
 						
-						process.stdout.write("            checking configurable on {writable:false, configurable:false, enumerable:true}... ");
+						process.stdout.write("                checking configurable on {writable:false, configurable:false, enumerable:true}... ");
 						passed = true;
 						try {
 							delete target.prop;
@@ -387,7 +388,7 @@
 						}
 						process.stdout.write(`${passed?'pass':'fail'}\n`);
 						
-						process.stdout.write("            checking configurable on {writable:true, configurable:false, enumerable:true}... ");
+						process.stdout.write("                checking configurable on {writable:true, configurable:false, enumerable:true}... ");
 						passed = true;
 						try {
 							delete target.prop2;
@@ -402,10 +403,10 @@
 					
 					{
 						let target = {}; let passed;
-						tiiny.ImprintProperties(target, {prop:"val"}, {writable:false, configurable:false, enumerable:true});
-						tiiny.ImprintProperties(target, {prop2:"val2"}, {writable:true, configurable:false, enumerable:true});
+						PropImprint(target, {prop:"val"}, {writable:false, configurable:false, enumerable:true});
+						PropImprint(target, {prop2:"val2"}, {writable:true, configurable:false, enumerable:true});
 						
-						process.stdout.write("            checking enumerable on {writable:false, configurable:false, enumerable:true}... ");
+						process.stdout.write("                checking enumerable on {writable:false, configurable:false, enumerable:true}... ");
 						passed = false;
 						for(let idx in target) {
 							if (idx === 'prop') {
@@ -414,7 +415,7 @@
 						}
 						process.stdout.write(`${passed?'pass':'fail'}\n`);
 						
-						process.stdout.write("            checking enumerable on {writable:true, configurable:false, enumerable:true}... ");
+						process.stdout.write("                checking enumerable on {writable:true, configurable:false, enumerable:true}... ");
 						passed = false;
 						for(let idx in target) {
 							if (idx === 'prop2') {
@@ -425,14 +426,14 @@
 					}
 				}
 				
-				process.stdout.write("\n        options={writable:false, configurable:?, enumerable:true}...");
+				process.stdout.write("\n            options={writable:false, configurable:?, enumerable:true}...");
 				{
 					{
 						let target = {}; let passed;
-						tiiny.ImprintProperties(target, {prop:"val"}, {writable:false, configurable:false, enumerable:true});
-						tiiny.ImprintProperties(target, {prop2:"val2"}, {writable:false, configurable:true, enumerable:true});
+						PropImprint(target, {prop:"val"}, {writable:false, configurable:false, enumerable:true});
+						PropImprint(target, {prop2:"val2"}, {writable:false, configurable:true, enumerable:true});
 						
-						process.stdout.write("\n            checking writable on {writable:false, configurable:false, enumerable:true}... ");
+						process.stdout.write("\n                checking writable on {writable:false, configurable:false, enumerable:true}... ");
 						passed = true;
 						try {
 							target.prop = 1;
@@ -442,7 +443,7 @@
 						}
 						process.stdout.write(`${passed?'pass':'fail'}\n`);
 						
-						process.stdout.write("            checking writable on {writable:false, configurable:true, enumerable:true}... ");
+						process.stdout.write("                checking writable on {writable:false, configurable:true, enumerable:true}... ");
 						passed = true;
 						try {
 							target.prop2 = 1;
@@ -457,10 +458,10 @@
 					
 					{
 						let target = {}; let passed;
-						tiiny.ImprintProperties(target, {prop:"val"}, {writable:false, configurable:false, enumerable:true});
-						tiiny.ImprintProperties(target, {prop2:"val2"}, {writable:false, configurable:true, enumerable:true});
+						PropImprint(target, {prop:"val"}, {writable:false, configurable:false, enumerable:true});
+						PropImprint(target, {prop2:"val2"}, {writable:false, configurable:true, enumerable:true});
 						
-						process.stdout.write("            checking configurable on {writable:false, configurable:false, enumerable:true}... ");
+						process.stdout.write("                checking configurable on {writable:false, configurable:false, enumerable:true}... ");
 						passed = true;
 						try {
 							delete target.prop;
@@ -470,7 +471,7 @@
 						}
 						process.stdout.write(`${passed?'pass':'fail'}\n`);
 						
-						process.stdout.write("            checking configurable on {writable:false, configurable:true, enumerable:true}... ");
+						process.stdout.write("                checking configurable on {writable:false, configurable:true, enumerable:true}... ");
 						passed = true;
 						try {
 							delete target.prop2;
@@ -485,10 +486,10 @@
 					
 					{
 						let target = {}; let passed;
-						tiiny.ImprintProperties(target, {prop:"val"}, {writable:false, configurable:false, enumerable:true});
-						tiiny.ImprintProperties(target, {prop2:"val2"}, {writable:false, configurable:true, enumerable:true});
+						PropImprint(target, {prop:"val"}, {writable:false, configurable:false, enumerable:true});
+						PropImprint(target, {prop2:"val2"}, {writable:false, configurable:true, enumerable:true});
 						
-						process.stdout.write("            checking enumerable on {writable:false, configurable:false, enumerable:true}... ");
+						process.stdout.write("                checking enumerable on {writable:false, configurable:false, enumerable:true}... ");
 						passed = false;
 						for(let idx in target) {
 							if (idx === 'prop') {
@@ -497,7 +498,7 @@
 						}
 						process.stdout.write(`${passed?'pass':'fail'}\n`);
 						
-						process.stdout.write("            checking enumerable on {writable:false, configurable:true, enumerable:true}... ");
+						process.stdout.write("                checking enumerable on {writable:false, configurable:true, enumerable:true}... ");
 						passed = false;
 						for(let idx in target) {
 							if (idx === 'prop2') {
@@ -508,14 +509,14 @@
 					}
 				}
 				
-				process.stdout.write("\n        options={writable:false, configurable:false, enumerable:?}...");
+				process.stdout.write("\n            options={writable:false, configurable:false, enumerable:?}...");
 				{
 					{
 						let target = {}; let passed;
-						tiiny.ImprintProperties(target, {prop:"val"}, {writable:false, configurable:false, enumerable:false});
-						tiiny.ImprintProperties(target, {prop2:"val2"}, {writable:false, configurable:false, enumerable:true});
+						PropImprint(target, {prop:"val"}, {writable:false, configurable:false, enumerable:false});
+						PropImprint(target, {prop2:"val2"}, {writable:false, configurable:false, enumerable:true});
 						
-						process.stdout.write("\n            checking writable on {writable:false, configurable:false, enumerable:false}... ");
+						process.stdout.write("\n                checking writable on {writable:false, configurable:false, enumerable:false}... ");
 						passed = true;
 						try {
 							target.prop = 1;
@@ -525,7 +526,7 @@
 						}
 						process.stdout.write(`${passed?'pass':'fail'}\n`);
 						
-						process.stdout.write("            checking writable on {writable:false, configurable:false, enumerable:true}... ");
+						process.stdout.write("                checking writable on {writable:false, configurable:false, enumerable:true}... ");
 						passed = true;
 						try {
 							target.prop2 = 1;
@@ -540,10 +541,10 @@
 					
 					{
 						let target = {}; let passed;
-						tiiny.ImprintProperties(target, {prop:"val"}, {writable:false, configurable:false, enumerable:false});
-						tiiny.ImprintProperties(target, {prop2:"val2"}, {writable:false, configurable:false, enumerable:true});
+						PropImprint(target, {prop:"val"}, {writable:false, configurable:false, enumerable:false});
+						PropImprint(target, {prop2:"val2"}, {writable:false, configurable:false, enumerable:true});
 						
-						process.stdout.write("            checking configurable on {writable:false, configurable:false, enumerable:false}... ");
+						process.stdout.write("                checking configurable on {writable:false, configurable:false, enumerable:false}... ");
 						passed = true;
 						try {
 							delete target.prop;
@@ -553,7 +554,7 @@
 						}
 						process.stdout.write(`${passed?'pass':'fail'}\n`);
 						
-						process.stdout.write("            checking configurable on {writable:false, configurable:false, enumerable:true}... ");
+						process.stdout.write("                checking configurable on {writable:false, configurable:false, enumerable:true}... ");
 						passed = true;
 						try {
 							delete target.prop2;
@@ -568,10 +569,10 @@
 					
 					{
 						let target = {}; let passed;
-						tiiny.ImprintProperties(target, {prop:"val"}, {writable:false, configurable:false, enumerable:false});
-						tiiny.ImprintProperties(target, {prop2:"val2"}, {writable:false, configurable:false, enumerable:true});
+						PropImprint(target, {prop:"val"}, {writable:false, configurable:false, enumerable:false});
+						PropImprint(target, {prop2:"val2"}, {writable:false, configurable:false, enumerable:true});
 						
-						process.stdout.write("            checking enumerable on {writable:false, configurable:false, enumerable:false}... ");
+						process.stdout.write("                checking enumerable on {writable:false, configurable:false, enumerable:false}... ");
 						passed = true;
 						for(let idx in target) {
 							if (idx === 'prop') {
@@ -580,7 +581,7 @@
 						}
 						process.stdout.write(`${passed?'pass':'fail'}\n`);
 						
-						process.stdout.write("            checking enumerable on {writable:false, configurable:false, enumerable:true}... ");
+						process.stdout.write("                checking enumerable on {writable:false, configurable:false, enumerable:true}... ");
 						passed = false;
 						for(let idx in target) {
 							if (idx === 'prop2') {

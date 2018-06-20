@@ -1,13 +1,13 @@
 {
     "name": "tiinytiny",
-    "version": "0.2.0",
+    "version": "0.2.2",
     "description": "This module provides tiiny things to help developers to write less lines...",
     "main": "entry.js",
 	"engines": {
 		"node": ">=8"
 	},
     "scripts": {
-        "test": "node test.js"
+        "test": "node test.js && echo '' && node test-safe.js"
     },
     "repository": {
 		"type": "git",

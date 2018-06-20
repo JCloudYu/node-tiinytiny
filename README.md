@@ -5,7 +5,7 @@ This library is aimed to provide some useful functions for developers to make th
 
 ## Installation ##
 Simply type the following command to install this module
-```text
+```
 npm install tiinytiny
 ```
 
@@ -16,14 +16,23 @@ npm install tiinytiny
 
 ## Usage ##
 To use this module, simply requires the module and use the functions attached on the returned object.
-```javasctipt
+```javascript
 let tiiny = require( 'tiinytiny' );
 ```
 
-Some of the functions are also designed to extend the capabilities of the existing built-in objects. Developers can use the following statement to make the APIs be avaiable on the built-in objects.
+### Built-in object extensions ###
+Since that the module is designed to extend the capabilities of the existing built-in objects, the supportive apis will be attached onto the built-in ojbects by default. Developers who don't want to mess with the built-in objects can use the following statement before the first use of tiinytiny module. 
 ```javascript
-let tiiny = require( 'tiinytiny' ).register();
+require('tiinytiny/safe');
 ```
+
+Here's an example for developers who want to use tiinytiny but don't want to mess with their global built-in objects.
+```javascript
+require( 'tiinytiny/safe' );
+let tiiny = require( 'tiinytiny' );
+```
+
+> Note that once the **tiinytiny/safe** is invoked, there tiinytiny apis will not be attached on the built-in objects anymore!
 
 
 
