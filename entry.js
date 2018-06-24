@@ -8,5 +8,6 @@
 		require('./lib/func_parse_url_query')(true);
 		require('./lib/func_promise_wait_all')(true);
 		require('./lib/func_include')(true);
+		require('./lib/func_period')(true);
 	}
 })();
