@@ -7,7 +7,8 @@
 		ImprintProperties:imprint,
 		ParseURLQuery:require('./lib/func_parse_url_query')(false),
 		PromiseWaitAll:require('./lib/func_promise_wait_all')(false),
-		Include:require('./lib/func_include')(false)
+		Include:require('./lib/func_include')(false),
+		Period:require('./lib/func_period')(false)
 	}, false);
 	
 	require('./entry');
