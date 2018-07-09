@@ -34,12 +34,16 @@ let tiiny = require( 'tiinytiny' );
 
 > Note that once the **tiinytiny/safe** is invoked, there tiinytiny apis will not be attached on the built-in objects anymore!
 
+### Package dependent extensions ###
+Tiinytiny is aimed to provide more convenient usages to the both exsisting apis or libraries.  So there're still some other extensions dependent on different packages. And these extensions will not be exported by default. Developers have to require them manually. For insance, the mongodb extension must be required in the following way.
+```javascript
+require('tiinytiny/ext/mongodb');
+```
 
 
 
 
-
-## API List ##
+## Default API List ##
 This section lists the apis defined in the library.
 
 ### ImprintProperties(target, properties, options) ###
@@ -139,4 +143,36 @@ global.include
 const tiiny = require('tiinytiny');
 const fs = tiiny.Include( 'fs' );
 const sub = tiiny.Include( './a/b/sub' );
+```
+
+
+
+## MongoDB Driver Extension ##
+This extension is aimed to extend the apis provided by [MongoDB Driver](http://mongodb.github.io/node-mongodb-native/).
+
+### Registration Point ###
+This extension is being registered at following module path
+```javascript
+tiinytiny/ext/mongodb
+```
+
+### Cursor.prototype.forEach(iteration_cb, [end_cb]) ###
+This extension allows users to skip the second argument, **end_cb** of orgiinal forEach api. If **end_cb** is not passed, a Promise is returned which will be resolved when the whole iteration is done!
+
+```javascript
+require('tiinytiny/ext/mongodb');
+
+let collection;     // The mongodb collection to be operated on
+let dataSet = [];
+
+// await when the iteration is done!
+await collection.find({}).forEach((doc)=>{
+    // Do something on the doc
+    doc.id = doc._id.toString();
+    delete doc._id;
+    dataSet.push(doc);
+});
+
+// Do something on the collected data
+console.log(dataSet);
 ```
