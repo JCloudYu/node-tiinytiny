@@ -146,6 +146,30 @@ const sub = tiiny.Include( './a/b/sub' );
 ```
 
 
+### Period(callback(deltaTime), [countdown]) ###
+A simple timer api allows developers to execute infinitely or a number of times.
+
+#### params ####
+| name | type | descriptions |
+|:----|:----|:----|
+| callback | ```Function``` | The path of the requied module |
+| countdown | ```Integer``` | The times the callback will be executed |
+
+#### return ####
+The Period will return an Object with the following properties that allows developers to control over the execution process.
+
+```javascript
+{
+    waitable: @Promise,     // A promise that is resolved when the period is stopped
+    isStopped: @bool,       // Whether the period is stopped
+    
+    stop: @Function,        // Stop the periodic callback
+    pause: @Function,       // Pause the periodic callback
+    resume: @Function       // Resume the periodic callback
+}
+```
+> Please be noted that the callback will not be executed again if the period instance is being stopped by calling stop() method or the countdown condition is reached!
+
 
 ## MongoDB Driver Extension ##
 This extension is aimed to extend the apis provided by [MongoDB Driver](http://mongodb.github.io/node-mongodb-native/).
@@ -159,6 +183,8 @@ tiinytiny/ext/mongodb
 ### Cursor.prototype.forEach(iteration_cb, [end_cb]) ###
 This extension allows users to skip the second argument, **end_cb** of orgiinal forEach api. If **end_cb** is not passed, a Promise is returned which will be resolved when the whole iteration is done!
 
+
+#### example ####
 ```javascript
 require('tiinytiny/ext/mongodb');
 
